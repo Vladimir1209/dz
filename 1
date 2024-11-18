@@ -1,0 +1,86 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+
+float result(char a, float b, float c){
+    char g1 = '+';
+    char g2 = '*';
+    char g3 = '/';
+    char g4 = '-';
+   
+        
+    if(a==g1){
+            return b+c;
+        }
+    if(a==g2){
+            return b*c;
+        }
+    if(a==g3){
+            return b/c;
+        }
+    if(a==g4){
+            return b-c;
+        }
+};
+
+
+
+
+int main()
+{
+    vector<float> per;
+    vector<char> oper;
+    vector<char> oper1;
+    string a = "";
+    string b, c, v;
+    string d = "0123456789";
+    string e = "*/+-";
+    string f="*/";
+    
+    cin >> v;
+    for (int i = 0; i < v.size(); ++i)
+    {
+        if (d.find(v[i]) != string::npos)
+        {
+            a=a+v[i];
+        
+        }else{
+            
+            per.push_back(stof(a));
+            a="";
+        }
+        if(e.find(v[i]) != string::npos){
+            
+            oper.push_back(v[i]);
+        }
+            
+    }
+    per.push_back(stof(a));
+    int r =0;
+    for(int i = 0; i < oper.size(); ++i){
+        
+        if (f.find(oper[i]) != string::npos) {
+            float nr = result(oper[i], per[i-r], per[i-r + 1]);
+            per.erase(per.begin() + i-r, per.begin() + i-r + 2);  
+            per.insert(per.begin() + i-r, nr);
+            r++;
+        }else{oper1.push_back(oper[i]);}
+        
+    }
+    float res=0;
+    r=0;
+    for(int i = 0; i < oper1.size(); ++i){
+        float nr = result(oper1[i], per[i-r], per[i-r + 1]);
+        per.erase(per.begin() + i-r, per.begin() + i-r + 2);  
+        per.insert(per.begin() + i-r, nr);
+        r++;
+    }
+    cout<<per[0];
+    
+        
+    
+ 
+
+}
